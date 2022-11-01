@@ -35,6 +35,22 @@ func Router() {
 	engine.GET("/", controller.Index)
 	engine.GET("/index", controller.Index)
 
+	mw := gintemplate.NewMiddleware(gintemplate.TemplateConfig{
+		Root:         "templates/admin",
+		Extension:    ".html",
+		Master:       "admin_login",
+		DisableCache: true,
+	})
+
+	// 后台管理员前端接口
+	web := engine.Group("/admin", mw)
+
+	{
+		// index
+		web.GET("/", controller.AdminIndex)
+
+	}
+
 	// 启动、监听端口
 	post := fmt.Sprintf(":%s", global.Config.Server.Post)
 	if err := engine.Run(post); err != nil {

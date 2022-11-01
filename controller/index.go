@@ -17,3 +17,11 @@ func Index(c *gin.Context) {
 	//posts["name"] = "dsadsad"
 	gintemplate.HTML(c, http.StatusOK, "article", gin.H{"posts": posts, "tags": tags})
 }
+
+func AdminIndex(c *gin.Context) {
+	//posts := indexPostService.GetPostList()
+	//tags := indexTagService.GetTagList()
+	//posts := make(map[string]string)
+	//posts["name"] = "dsadsad"
+	gintemplate.HTML(c, http.StatusOK, "admin_login", nil)
+}
