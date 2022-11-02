@@ -46,15 +46,12 @@ func Router() {
 	web := engine.Group("/admin", mw)
 
 	{
-
 		web.GET("/", controller.AdminLoginPage)
 		web.GET("/login", controller.AdminLoginPage)
-
 	}
 
 	{
-		//
-		web.POST("/doLogin", controller.AdminLogin)
+		web.POST("/doLogin", controller.UserLoginHandler)
 		web.GET("/index", controller.AdminIndexPage)
 	}
 
