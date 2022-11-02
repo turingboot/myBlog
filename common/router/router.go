@@ -46,9 +46,15 @@ func Router() {
 	web := engine.Group("/admin", mw)
 
 	{
-		// index
-		web.GET("/", controller.AdminIndex)
 
+		web.GET("/", controller.AdminIndexPage)
+
+	}
+
+	{
+		//
+		//web.POST("/login", controller.AdminLogin)
+		//web.GET("/dashboard", controller.AdminIndexPage)
 	}
 
 	// 启动、监听端口
