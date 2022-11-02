@@ -36,9 +36,9 @@ func Router() {
 	engine.GET("/index", controller.Index)
 
 	mw := gintemplate.NewMiddleware(gintemplate.TemplateConfig{
-		Root:         "templates/admin",
-		Extension:    ".html",
-		Master:       "admin_login",
+		Root:      "templates/backend",
+		Extension: ".html",
+		//Master:       "login",
 		DisableCache: true,
 	})
 
@@ -47,14 +47,15 @@ func Router() {
 
 	{
 
-		web.GET("/", controller.AdminIndexPage)
+		web.GET("/", controller.AdminLoginPage)
+		web.GET("/login", controller.AdminLoginPage)
 
 	}
 
 	{
 		//
-		//web.POST("/login", controller.AdminLogin)
-		//web.GET("/dashboard", controller.AdminIndexPage)
+		web.POST("/doLogin", controller.AdminLogin)
+		web.GET("/index", controller.AdminIndexPage)
 	}
 
 	// 启动、监听端口

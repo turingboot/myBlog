@@ -14,30 +14,26 @@ var indexTagService service.TagService
 func Index(c *gin.Context) {
 	posts := indexPostService.GetPostList()
 	tags := indexTagService.GetTagList()
-	//posts := make(map[string]string)
-	//posts["name"] = "dsadsad"
+
 	gintemplate.HTML(c, http.StatusOK, "article", gin.H{"posts": posts, "tags": tags})
 }
 
 func AdminLoginPage(c *gin.Context) {
-	//posts := indexPostService.GetPostList()
-	//tags := indexTagService.GetTagList()
-	//posts := make(map[string]string)
-	//posts["name"] = "dsadsad"
-	gintemplate.HTML(c, http.StatusOK, "admin_login", nil)
+	gintemplate.HTML(c, http.StatusOK, "login", nil)
 }
 
 func AdminLogin(c *gin.Context) {
-	userName := c.PostForm("userName")
-	userPwd := c.PostForm("userPwd")
+	userName := c.PostForm("username")
+	userPwd := c.PostForm("password")
 	fmt.Printf("%s\n", userName)
 	fmt.Printf("%s", userPwd)
 	//gin.H{"flag": true}
-	c.JSON(http.StatusOK, gin.H{"flag": true})
+	c.JSON(http.StatusOK, gin.H{"status": 200})
 	//gintemplate.HTML(c, http.StatusOK, "admin_index", nil)
+	//c.Redirect(http.StatusOK, "/admin/index")
 }
 
 func AdminIndexPage(c *gin.Context) {
-	fmt.Printf("adminIndexPage")
-	gintemplate.HTML(c, http.StatusOK, "admin_index", nil)
+	fmt.Printf("adminIndexPage\n")
+	gintemplate.HTML(c, http.StatusOK, "index", nil)
 }
