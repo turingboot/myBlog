@@ -23,6 +23,11 @@ func AdminLoginPage(c *gin.Context) {
 }
 
 func AdminIndexPage(c *gin.Context) {
-	fmt.Printf("adminIndexPage\n")
-	gintemplate.HTML(c, http.StatusOK, "index", nil)
+	id := c.Param("id")
+	fmt.Println(id)
+	gintemplate.HTML(c, http.StatusOK, "index", gin.H{"user_id": id})
+}
+
+func AdminUserManagementPage(c *gin.Context) {
+	gintemplate.HTML(c, http.StatusOK, "user_manage", nil)
 }

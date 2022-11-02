@@ -23,3 +23,11 @@ func (us *UserService) UserinfoStr(userName string) (models.User, int) {
 	}
 	return model, errmsg.SUCCSE
 }
+
+func (us *UserService) UserList() ([]models.User, int) {
+	modelList := models.GetUserList()
+	if modelList == nil {
+		return modelList, errmsg.ERROR_USER_NOT_EXIST
+	}
+	return modelList, errmsg.SUCCSE
+}

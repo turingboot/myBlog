@@ -48,11 +48,16 @@ func Router() {
 	{
 		web.GET("/", controller.AdminLoginPage)
 		web.GET("/login", controller.AdminLoginPage)
+		web.GET("/index/:id", controller.AdminIndexPage)
+		web.GET("/user", controller.AdminUserManagementPage)
+
 	}
 
 	{
+		// UserHandler data
 		web.POST("/doLogin", controller.UserLoginHandler)
-		web.GET("/index", controller.AdminIndexPage)
+		//web.GET("/user/detail/:username", controller.AdminIndexPage)
+		web.GET("/user/all", controller.UserListHandler)
 	}
 
 	// 启动、监听端口

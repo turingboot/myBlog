@@ -30,3 +30,9 @@ func GetUserByName(username string) User {
 	global.Db.Where("username = ?", username).First(&user)
 	return user
 }
+
+func GetUserList() []User {
+	postList := make([]User, 0)
+	global.Db.Find(&postList)
+	return postList
+}
