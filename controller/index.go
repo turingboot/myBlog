@@ -8,14 +8,13 @@ import (
 	"net/http"
 )
 
-var indexPostService service.PostService
-var indexTagService service.TagService
+var postService service.PostService
+var categoryService service.CategoryService
 
 func Index(c *gin.Context) {
-	posts := indexPostService.GetPostList()
-	tags := indexTagService.GetTagList()
-
-	gintemplate.HTML(c, http.StatusOK, "article", gin.H{"posts": posts, "tags": tags})
+	posts := postService.GetPostList()
+	categories, _ := categoryService.GetCategoryList()
+	gintemplate.HTML(c, http.StatusOK, "article", gin.H{"posts": posts, "categories": categories})
 }
 
 func AdminLoginPage(c *gin.Context) {
@@ -30,4 +29,8 @@ func AdminIndexPage(c *gin.Context) {
 
 func AdminUserManagementPage(c *gin.Context) {
 	gintemplate.HTML(c, http.StatusOK, "user_manage", nil)
+}
+
+func AdminCategoryManagementPage(c *gin.Context) {
+	gintemplate.HTML(c, http.StatusOK, "category_manage", nil)
 }

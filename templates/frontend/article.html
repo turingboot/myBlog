@@ -109,7 +109,7 @@
 			    		</div>
 			    		<ul class="category mt20" id="category">
 				        	<li data-index="0" class="slider"></li>
-							{{ range $key,$value := .tags }}
+							{{ range $key,$value := .categories }}
 							<li data-index=""><a href="">{{ $value.Title }}</a></li>
 							{{end}}
 			    		</ul>
