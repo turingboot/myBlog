@@ -125,7 +125,7 @@
         /**
          * toolbar监听事件
          */
-        user_management.on('toolbar(currentTableFilter)', function (obj) {
+        table.on('toolbar(currentTableFilter)', function (obj) {
             if (obj.event === 'add') {  // 监听添加操作
                 var index = layer.open({
                     title: '添加用户',
@@ -140,18 +140,18 @@
                     layer.full(index);
                 });
             } else if (obj.event === 'delete') {  // 监听删除操作
-                var checkStatus = user_management.checkStatus('currentTableId')
+                var checkStatus = table.checkStatus('currentTableId')
                     , data = checkStatus.data;
                 layer.alert(JSON.stringify(data));
             }
         });
 
         //监听表格复选框选择
-        user_management.on('checkbox(currentTableFilter)', function (obj) {
+        table.on('checkbox(currentTableFilter)', function (obj) {
             console.log(obj)
         });
 
-        user_management.on('tool(currentTableFilter)', function (obj) {
+        table.on('tool(currentTableFilter)', function (obj) {
             var data = obj.data;
             if (obj.event === 'edit') {
 

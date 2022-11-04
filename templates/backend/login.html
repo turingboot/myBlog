@@ -105,7 +105,7 @@
                 type: "post",
                 success: function (res) {
                    if(res.status===200){
-                       window.location.href = "/admin/index/" + res.data["ID"].toString()
+                       window.location.href = "/admin/index/" + res.data["id"].toString()
                    }else if(res.status===1002){
                        layer.msg(res.message,{time:2000})
                    }else if(res.status===1003){
