@@ -41,7 +41,9 @@ func main() {
 	// apply diy interfaces on structs or table models
 	g.ApplyInterface(
 		func(method method.UserMethod) {},
-		g.GenerateModelAs("user", "User"))
+		func(method method.CategoryMethod) {},
+		g.GenerateModelAs("user", "User"),
+		g.GenerateModelAs("category", "Category"))
 	// execute the action of code generation
 	g.Execute()
 
