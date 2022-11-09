@@ -30,7 +30,6 @@ func Router() {
 		Funcs:        functions,
 		DisableCache: true,
 	})
-
 	// 前台
 	engine.GET("/", controller.Index)
 	engine.GET("/index", controller.Index)
@@ -64,10 +63,12 @@ func Router() {
 		//
 		web.GET("/category/all", controller.CategoryListHandler)
 	}
+
 	{
-		//
+		//add page
 		web.GET("/article/article_add_page", controller.ArticleAddPageHandler)
-		//web.POST("/article", controller.CategoryListHandler)
+		//Add
+		web.POST("/article", controller.ArticleAddHandler)
 	}
 
 	// 启动、监听端口

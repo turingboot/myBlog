@@ -48,9 +48,10 @@
 		        <div class="inner">
 		            <article class="article-list bloglist" id="LAY_bloglist" >
 
-						{{ range $value := .posts }}
-						<section class="article-item zoomIn article">       
-							<div class="fc-flag">置顶</div>   
+						{{ range $value := .articles }}
+						<section class="article-item zoomIn article">
+							<div class="fc-flag">置顶</div>
+
 							<h5 class="title">       
 								<span class="fc-blue">【原创】</span>       
 								<a href="read.html">{{ $value.Title }}</a>
@@ -65,7 +66,7 @@
 								<a href="read.html" class="cover img-light">           
 									<img src="/assets/frontend/image/cover/2019121192339714.png">
 								</a>
-								{{ $value.Summary }}
+								{{ $value.ArticleSummary }}
 							</div>   
 							<div class="read-more">       
 								<a href="read.html" class="fc-black f-fwb">继续阅读</a>   

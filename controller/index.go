@@ -8,13 +8,12 @@ import (
 	"net/http"
 )
 
-var postService service.PostService
 var categoryService service.CategoryService
 
 func Index(c *gin.Context) {
-	posts := postService.GetPostList()
+	articles, _ := articleService.GetList()
 	categories, _ := categoryService.GetCategoryList()
-	gintemplate.HTML(c, http.StatusOK, "article", gin.H{"posts": posts, "categories": categories})
+	gintemplate.HTML(c, http.StatusOK, "article", gin.H{"articles": articles, "categories": categories})
 }
 
 func AdminLoginPage(c *gin.Context) {

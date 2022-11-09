@@ -4,8 +4,8 @@
     "href": "page/welcome-1.html?t=1"
   },
   "logoInfo": {
-    "title": "LAYUI MINI",
-    "image": "images/logo.png",
+    "title": "TA0-BLOG",
+    "image": "/assets/backend/images/logo.png",
     "href": ""
   },
   "menuInfo": [

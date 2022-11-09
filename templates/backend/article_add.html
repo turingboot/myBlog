@@ -16,7 +16,7 @@
     <div class="layuimini-main">
 
 
-        <form class="layui-form  layui-form-pane" action="" lay-filter="example">
+        <form class="layui-form  layui-form-pane" action="" lay-filter="article_form">
 
             <div class="layui-form-item">
                 <label class="layui-form-label">文章标题</label>
@@ -28,14 +28,14 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">文章简介</label>
                 <div class="layui-input-block">
-                    <input type="text" name="article_summary" lay-verify="title" autocomplete="off" placeholder="请输入文章简介" class="layui-input">
+                    <input type="text" name="article_summary" lay-verify="article_summary" autocomplete="off" placeholder="请输入文章简介" class="layui-input">
                 </div>
             </div>
 
             <div class="layui-form-item">
                 <label class="layui-form-label">文章分类</label>
                 <div class="layui-input-block">
-                    <select name="interest" lay-filter="category">
+                    <select name="article_category" lay-filter="article_category">
                         <option value=""></option>
                         <option value="0">写作</option>
                         <option value="1">阅读</option>
@@ -50,7 +50,7 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">是否置顶</label>
                     <div class="layui-input-inline">
-                        <input type="checkbox" checked="" name="open" lay-skin="switch" lay-filter="switchTest" >
+                        <input type="checkbox" checked="" name="top_flag" lay-skin="switch" lay-filter="top_flag" >
                     </div>
                 </div>
 
@@ -76,7 +76,7 @@
 
             <div class="layui-form-item">
                 <div class="layui-input-block">
-                    <button class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
+                    <button class="layui-btn" lay-submit="" lay-filter="add_article">立即提交</button>
                 </div>
             </div>
 
@@ -98,12 +98,13 @@
             , layedit = layui.layedit
             , laydate = layui.laydate;
 
-        let contentEditor;
 
+        let contentEditor;
         $(function() {
              contentEditor = editormd("md-content", {
                 width  : "100%",
-                height : 500,
+                height : true,
+                saveHTMLToTextarea: true,
                 path: "/assets/backend/lib/editor.md/lib/"
             });
         });
@@ -125,32 +126,45 @@
         });
 
         //监听指定开关
-        form.on('switch(switchTest)', function (data) {
-            layer.msg('开关checked：' + (this.checked ? 'true' : 'false'), {
-                offset: '6px'
-            });
+        form.on('switch(top_flag)', function (data) {
+            // layer.msg('开关checked：' + (this.checked ? 'true' : 'false'), {
+            //     offset: '6px'
+            // });
             // layer.tips('温馨提示：请注意开关状态的文字可以随意定义，而不仅仅是ON|OFF', data.othis)
         });
 
         //监听提交
-        form.on('submit(demo1)', function (data) {
-            layer.alert(JSON.stringify(data.field), {
-                title: '最终的提交信息'
+        form.on('submit(add_article)', function (data) {
+            // layer.alert(JSON.stringify(data.field), {
+            //     title: '最终的提交信息'
+            // })
+            // const data_filed = JSON.stringify(data.field);
+            const form_data = {
+                "article_user": "test",
+                "title": data.field.article_name,
+                "top_flag": data.field.top_flag,
+                "article_summary": data.field.article_summary,
+                "content_md": contentEditor.getMarkdown(),
+                "content_html": contentEditor.getHTML()
+            }
+
+            $.ajax({
+                url: "/admin/article",
+                data: form_data ,
+                type: "post",
+                success: function (res) {
+                    if(res.status===200){
+                      console.log(res)
+                    }else if(res.status===500){
+                        layer.msg(res.message,{time:2000})
+                    }else{
+                        layer.msg("请求错误",{time:2000})
+                    }
+                },
             })
+
             return false;
         });
-
-        //表单初始赋值
-        // form.val('example', {
-        //     "username": "贤心" // "name": "value"
-        //     , "password": "123456"
-        //     , "interest": 1
-        //     , "like[write]": true //复选框选中状态
-        //     , "close": true //开关状态
-        //     , "sex": "女"
-        //     , "desc": "我爱 layui"
-        // })
-
 
     });
 </script>
