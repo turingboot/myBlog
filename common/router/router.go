@@ -51,7 +51,7 @@ func Router() {
 		web.GET("/index/:id", controller.AdminIndexPage)
 		web.GET("/user", controller.AdminUserManagementPage)
 		web.GET("/category", controller.AdminCategoryManagementPage)
-
+		web.GET("/article", controller.AdminArticleManagementPage)
 	}
 
 	{
@@ -63,6 +63,11 @@ func Router() {
 	{
 		//
 		web.GET("/category/all", controller.CategoryListHandler)
+	}
+	{
+		//
+		web.GET("/article/article_add_page", controller.ArticleAddPageHandler)
+		//web.POST("/article", controller.CategoryListHandler)
 	}
 
 	// 启动、监听端口

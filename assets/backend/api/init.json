@@ -15,7 +15,6 @@
       "href": "",
       "target": "_self",
       "child": [
-
         {
           "title": "用户管理",
           "href": "/admin/user",
@@ -32,25 +31,25 @@
     },
     {
       "title": "文章管理",
-      "icon": "fa fa-address-book",
+      "icon": "fa fa-lemon-o",
       "href": "",
       "target": "_self",
       "child": [
         {
           "title": "文章列表",
-          "href": "/admin/user",
-          "icon": "fa fa-gears",
+          "href": "/admin/article",
+          "icon": "fa fa-arrow-up",
           "target": "_self"
         },
         {
           "title": "添加文章",
-          "href": "/admin/user",
+          "href": "/admin/article/article_add_page",
           "icon": "fa fa-gears",
           "target": "_self"
         },
         {
           "title": "草稿箱",
-          "href": "/admin/user",
+          "href": "#",
           "icon": "fa fa-gears",
           "target": "_self"
         }

@@ -34,3 +34,7 @@ func AdminUserManagementPage(c *gin.Context) {
 func AdminCategoryManagementPage(c *gin.Context) {
 	gintemplate.HTML(c, http.StatusOK, "category_manage", nil)
 }
+
+func AdminArticleManagementPage(c *gin.Context) {
+	gintemplate.HTML(c, http.StatusOK, "article_manage", nil)
+}
