@@ -6,6 +6,7 @@ package query
 
 import (
 	"context"
+	"strings"
 
 	"gorm.io/gorm"
 	"gorm.io/gorm/clause"
@@ -91,6 +92,54 @@ func (c category) replaceDB(db *gorm.DB) category {
 }
 
 type categoryDo struct{ gen.DO }
+
+// GetCategoryById
+//
+// where("id=@ID")
+func (c categoryDo) GetCategoryById(ID int) (result model.Category, err error) {
+	var params []interface{}
+
+	var generateSQL strings.Builder
+	params = append(params, ID)
+	generateSQL.WriteString("id=? ")
+
+	var executeSQL *gorm.DB
+
+	executeSQL = c.UnderlyingDB().Where(generateSQL.String(), params...).Take(&result)
+	err = executeSQL.Error
+	return
+}
+
+// GetCategoryByName
+//
+// where("name=@name")
+func (c categoryDo) GetCategoryByName(name string) (result model.Category, err error) {
+	var params []interface{}
+
+	var generateSQL strings.Builder
+	params = append(params, name)
+	generateSQL.WriteString("name=? ")
+
+	var executeSQL *gorm.DB
+
+	executeSQL = c.UnderlyingDB().Where(generateSQL.String(), params...).Take(&result)
+	err = executeSQL.Error
+	return
+}
+
+// GetCategoryList
+//
+// sql(SELECT * FROM `category`)
+func (c categoryDo) GetCategoryList() (result []model.Category, err error) {
+	var generateSQL strings.Builder
+	generateSQL.WriteString("SELECT * FROM `category` ")
+
+	var executeSQL *gorm.DB
+
+	executeSQL = c.UnderlyingDB().Raw(generateSQL.String()).Find(&result)
+	err = executeSQL.Error
+	return
+}
 
 func (c categoryDo) Debug() *categoryDo {
 	return c.withDO(c.DO.Debug())

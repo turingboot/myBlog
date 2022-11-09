@@ -16,39 +16,49 @@ import (
 )
 
 var (
-	Q        = new(Query)
-	Category *category
-	User     *user
+	Q             = new(Query)
+	Article       *article
+	ArticleDetail *articleDetail
+	Category      *category
+	User          *user
 )
 
 func SetDefault(db *gorm.DB, opts ...gen.DOOption) {
 	*Q = *Use(db, opts...)
+	Article = &Q.Article
+	ArticleDetail = &Q.ArticleDetail
 	Category = &Q.Category
 	User = &Q.User
 }
 
 func Use(db *gorm.DB, opts ...gen.DOOption) *Query {
 	return &Query{
-		db:       db,
-		Category: newCategory(db, opts...),
-		User:     newUser(db, opts...),
+		db:            db,
+		Article:       newArticle(db, opts...),
+		ArticleDetail: newArticleDetail(db, opts...),
+		Category:      newCategory(db, opts...),
+		User:          newUser(db, opts...),
 	}
 }
 
 type Query struct {
 	db *gorm.DB
 
-	Category category
-	User     user
+	Article       article
+	ArticleDetail articleDetail
+	Category      category
+	User          user
 }
 
 func (q *Query) Available() bool { return q.db != nil }
 
 func (q *Query) clone(db *gorm.DB) *Query {
 	return &Query{
-		db:       db,
-		Category: q.Category.clone(db),
-		User:     q.User.clone(db),
+		db:            db,
+		Article:       q.Article.clone(db),
+		ArticleDetail: q.ArticleDetail.clone(db),
+		Category:      q.Category.clone(db),
+		User:          q.User.clone(db),
 	}
 }
 
@@ -62,21 +72,27 @@ func (q *Query) WriteDB() *Query {
 
 func (q *Query) ReplaceDB(db *gorm.DB) *Query {
 	return &Query{
-		db:       db,
-		Category: q.Category.replaceDB(db),
-		User:     q.User.replaceDB(db),
+		db:            db,
+		Article:       q.Article.replaceDB(db),
+		ArticleDetail: q.ArticleDetail.replaceDB(db),
+		Category:      q.Category.replaceDB(db),
+		User:          q.User.replaceDB(db),
 	}
 }
 
 type queryCtx struct {
-	Category *categoryDo
-	User     *userDo
+	Article       *articleDo
+	ArticleDetail *articleDetailDo
+	Category      *categoryDo
+	User          *userDo
 }
 
 func (q *Query) WithContext(ctx context.Context) *queryCtx {
 	return &queryCtx{
-		Category: q.Category.WithContext(ctx),
-		User:     q.User.WithContext(ctx),
+		Article:       q.Article.WithContext(ctx),
+		ArticleDetail: q.ArticleDetail.WithContext(ctx),
+		Category:      q.Category.WithContext(ctx),
+		User:          q.User.WithContext(ctx),
 	}
 }
 

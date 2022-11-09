@@ -37,13 +37,18 @@ func main() {
 	// GenerateModel/GenerateModelAs. And generator will generate table models' code when calling Excute.
 	g.ApplyBasic(
 		g.GenerateModelAs("user", "User"),
-		g.GenerateModelAs("category", "Category"))
+		g.GenerateModelAs("category", "Category"),
+		g.GenerateModelAs("article", "Article"),
+		g.GenerateModelAs("article_detail", "ArticleDetail"),
+	)
 	// apply diy interfaces on structs or table models
 	g.ApplyInterface(
 		func(method method.UserMethod) {},
+		g.GenerateModelAs("user", "User"))
+	g.ApplyInterface(
 		func(method method.CategoryMethod) {},
-		g.GenerateModelAs("user", "User"),
 		g.GenerateModelAs("category", "Category"))
+
 	// execute the action of code generation
 	g.Execute()
 
